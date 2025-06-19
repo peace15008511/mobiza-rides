@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="pt-40 bg-[#F5F3EF] px-4 sm:px-6 lg:px-12 pb-16 sm:pb-24 lg:pb-36 text-center">
+      <main className="pt-28 bg-[#F5F3EF] px-4 sm:px-6 lg:px-12 pb-16 sm:pb-24 lg:pb-36 text-center">
         <HeroSection />
         <AboutSection />
         <PackagesSection />
