@@ -20,7 +20,7 @@ const reviews = [
   },
 ];
 
-export default function ReviewSlider() {
+export default function ReviewsSection() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function ReviewSlider() {
   const { quote, name } = reviews[index];
 
   return (
-    <section className="bg-[#FDFCFB] py-12 px-4 text-center mb-20">
+    <section className="bg-[#FDFCFB] py-12 px-4 text-center">
       <h2 className="text-xl sm:text-2xl font-semibold text-[#2C2F33] mb-6">
         What Our Riders Say
       </h2>
