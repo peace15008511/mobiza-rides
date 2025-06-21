@@ -1,11 +1,11 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import HeroSection from "./components/Home/HeroSection";
-import AboutSection from "./components/Home/AboutSection";
-import PackagesSection from "./components/Home/PackagesSection";
-import RequirementsSection from "./components/Home/RequirementsSection";
-import HowItWorksSection from "./components/Home/HowItWorksSection";
-import ReviewsSection from "components/Home/ReviewsSection";
+import HeroSection from "./components/home/HeroSection";
+import AboutSection from "./components/home/AboutSection";
+import PackagesSection from "./components/home/PackagesSection";
+import RequirementsSection from "./components/home/RequirementsSection";
+import HowItWorksSection from "./components/home/HowItWorksSection";
+import ReviewsSection from "components/home/ReviewsSection";
 
 export default function Home() {
   return (
