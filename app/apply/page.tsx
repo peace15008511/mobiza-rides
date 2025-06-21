@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Step1 from "components/application/Step1";
-import Step2 from "components/application/Step2";
-import Step3 from "components/application/Step3";
-import Step4 from "components/application/Step4";
-import Step5 from "components/application/Step5";
-import ProgressBar from "components/application/ProgressBar";
-import Modal from "components/Modal";
+import Step1 from "@/components/application/Step1";
+import Step2 from "@/components/application/Step2";
+import Step3 from "@/components/application/Step3";
+import Step4 from "@/components/application/Step4";
+import Step5 from "@/components/application/Step5";
+import ProgressBar from "@/components/application/ProgressBar";
+import Modal from "@/components/Modal";
 
 export default function ApplyPage() {
   const [step, setStep] = useState(0);
