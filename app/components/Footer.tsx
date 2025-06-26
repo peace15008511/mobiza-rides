@@ -3,38 +3,52 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 text-gray-700 py-10">
+    <footer className="bg-[#FDFCFB] text-black py-16 border-t border-[#D3CEC4] w-full">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-8 text-left">
         {/* About */}
         <div>
-          <h3 className="text-xl font-semibold mb-3 text-blue-800">Mobiza Rides!</h3>
-          <p className="text-sm text-gray-600">
-            Fully online delivery bike rentals — apply, get approved, and ride without any office visits.
+          <h3 className="text-xl font-semibold mb-3 text-[#C8102E]">
+            MobiZA Rides
+          </h3>
+          <p className="text-sm text-black/80">
+            Fully online delivery bike rentals — apply, get approved, and ride
+            without any office visits.
           </p>
         </div>
 
         {/* Quick Links */}
         <div>
-          <h4 className="text-lg font-semibold mb-3 text-blue-800">Quick Links</h4>
+          <h4 className="text-lg font-semibold mb-3 text-[#C8102E]">
+            Quick Links
+          </h4>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/bikes" className="hover:text-blue-600 transition">
-                View Bikes
+              <Link
+                href="#packages"
+                className="hover:text-[#C8102E] transition"
+              >
+                View packages
               </Link>
             </li>
             <li>
-              <Link href="/apply" className="hover:text-blue-600 transition">
-                Become a Rider
+              <Link href="/apply" className="hover:text-[#C8102E] transition">
+                Apply for a bike
               </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:text-blue-600 transition">
+              <Link
+                href="#about-us"
+                className="hover:text-[#C8102E] transition"
+              >
                 About Us
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-blue-600 transition">
-                Contact
+              <Link
+                href="#how-it-works"
+                className="hover:text-[#C8102E] transition"
+              >
+                How it works
               </Link>
             </li>
           </ul>
@@ -42,28 +56,30 @@ export default function Footer() {
 
         {/* Contact & Social */}
         <div>
-          <h4 className="text-lg font-semibold mb-3 text-blue-800">Contact Us</h4>
-          <p className="text-sm text-gray-600 mb-3">
+          <h4 className="text-lg font-semibold mb-3 text-[#C8102E]">
+            Contact Us
+          </h4>
+          <p className="text-sm text-black/80 mb-3">
             Email:{" "}
             <a
-              href="mailto:support@mobizarides.co.za"
-              className="hover:text-blue-600"
+              href="Support:support@mobizarides.com"
+              className="hover:text-[#C8102E]"
             >
-              support@mobizarides.co.za
+              support@mobizarides.com
             </a>
             <br />
             Phone:{" "}
-            <a href="tel:+27123456789" className="hover:text-blue-600">
+            <a href="tel:+27123456789" className="hover:text-[#C8102E]">
               +27 12 345 6789
             </a>
           </p>
-          <div className="flex space-x-4 mt-2">
+          <div className="flex space-x-4 mt-2 text-black">
             <a
               href="https://facebook.com/mobizarides"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="hover:text-blue-600"
+              className="hover:text-[#C8102E]"
             >
               <Facebook className="w-5 h-5" />
             </a>
@@ -72,7 +88,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Twitter"
-              className="hover:text-blue-600"
+              className="hover:text-[#C8102E]"
             >
               <Twitter className="w-5 h-5" />
             </a>
@@ -81,7 +97,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="hover:text-blue-600"
+              className="hover:text-[#C8102E]"
             >
               <Instagram className="w-5 h-5" />
             </a>
@@ -90,7 +106,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="hover:text-blue-600"
+              className="hover:text-[#C8102E]"
             >
               <Linkedin className="w-5 h-5" />
             </a>
@@ -98,8 +114,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mt-8 border-t border-gray-300 pt-6 text-center text-sm text-gray-500">
-        &copy; {new Date().getFullYear()} Mobiza Rides. All rights reserved.
+      <div className="mt-8 border-t border-black/10 text-center text-sm text-black/60">
+        &copy; {new Date().getFullYear()} MobiZa Rides. All rights reserved.
       </div>
     </footer>
   );

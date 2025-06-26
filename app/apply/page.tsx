@@ -70,7 +70,7 @@ export default function ApplyPage() {
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-extrabold text-[#1E3A8A] text-center mb-6">
+      <h1 className="text-3xl font-extrabold text-[#000000] text-center mb-6">
         Mobiza Rides Application
       </h1>
 

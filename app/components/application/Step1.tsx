@@ -17,7 +17,7 @@ export default function Step1({ formData, setFormData, onNext }: Props) {
       }}
       className="bg-white rounded-2xl shadow-lg p-8 space-y-6"
     >
-      <h2 className="text-2xl font-bold text-[#B08D57]">
+      <h2 className="text-2xl font-bold text-[#C8102E]">
         Step 1: Your Details
       </h2>
 
@@ -28,12 +28,14 @@ export default function Step1({ formData, setFormData, onNext }: Props) {
           id="firstName"
           required
           value={formData.firstName || ""}
-          onChange={(e) => setFormData({ firstName: e.target.value })}
-          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#B08D57] focus:border-transparent"
+          onChange={(e) =>
+            setFormData({ ...formData, firstName: e.target.value })
+          }
+          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
         />
         <label
           htmlFor="firstName"
-          className="absolute left-4 top-2 text-sm text-gray-500 peer-focus:text-[#B08D57] peer-focus:text-xs peer-focus:top-1 transition-all"
+          className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
         >
           First Name
         </label>
@@ -46,12 +48,14 @@ export default function Step1({ formData, setFormData, onNext }: Props) {
           id="surname"
           required
           value={formData.surname || ""}
-          onChange={(e) => setFormData({ surname: e.target.value })}
-          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#B08D57] focus:border-transparent"
+          onChange={(e) =>
+            setFormData({ ...formData, surname: e.target.value })
+          }
+          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
         />
         <label
           htmlFor="surname"
-          className="absolute left-4 top-2 text-sm text-gray-500 peer-focus:text-[#B08D57] peer-focus:text-xs peer-focus:top-1 transition-all"
+          className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
         >
           Surname
         </label>
@@ -64,12 +68,12 @@ export default function Step1({ formData, setFormData, onNext }: Props) {
           id="email"
           required
           value={formData.email || ""}
-          onChange={(e) => setFormData({ email: e.target.value })}
-          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#B08D57] focus:border-transparent"
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
         />
         <label
           htmlFor="email"
-          className="absolute left-4 top-2 text-sm text-gray-500 peer-focus:text-[#B08D57] peer-focus:text-xs peer-focus:top-1 transition-all"
+          className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
         >
           Email Address
         </label>
@@ -81,21 +85,30 @@ export default function Step1({ formData, setFormData, onNext }: Props) {
           type="tel"
           id="phone"
           required
-          value={formData.phoneNumber}
-          onChange={(e) => setFormData({ phoneNumber: e.target.value })}
-          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#B08D57] focus:border-transparent"
+          value={formData.phoneNumber || ""}
+          onChange={(e) =>
+            setFormData({ ...formData, phoneNumber: e.target.value })
+          }
+          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
         />
         <label
           htmlFor="phone"
-          className="absolute left-4 top-2 text-sm text-gray-500 peer-focus:text-[#B08D57] peer-focus:text-xs peer-focus:top-1 transition-all"
+          className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
         >
           Phone Number
         </label>
       </div>
 
+      {/* Submit Button */}
       <button
         type="submit"
-        className="w-full flex items-center justify-center gap-2 bg-[#B08D57] text-white py-3 px-6 rounded-xl hover:bg-[#1E3A8A] transition"
+        className="
+    w-full flex items-center justify-center gap-2
+    bg-black text-white
+    py-3 px-6 rounded-xl
+    transition duration-300
+    hover:bg-[#C8102E] hover:text-white
+  "
       >
         Next <ArrowRight className="w-4 h-4" />
       </button>

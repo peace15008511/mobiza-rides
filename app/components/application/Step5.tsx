@@ -50,11 +50,11 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
 
   return (
     <div className="space-y-6 bg-white rounded-2xl shadow-lg p-8">
-      <h2 className="text-2xl font-bold text-[#B08D57]">
+      <h2 className="text-2xl font-bold text-[#C8102E]">
         Step 5: Review & Submit
       </h2>
 
-      <div className="text-gray-800 space-y-2">
+      <div className="text-[#2C2F33] space-y-2">
         <p>
           <strong>First Name:</strong> {formData.firstName}
         </p>
@@ -91,7 +91,7 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
             <p className="text-sm text-gray-700">
               {selectedPackage.description}
             </p>
-            <p className="mt-1 font-semibold text-[#B08D57]">
+            <p className="mt-1 font-semibold text-[#C8102E]">
               {selectedPackage.price}
             </p>
           </div>
@@ -107,7 +107,7 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
           onChange={() => setAgreed(!agreed)}
           required
         />
-        <label htmlFor="agree" className="text-sm text-gray-700">
+        <label htmlFor="agree" className="text-sm text-[#2C2F33]">
           I agree to the{" "}
           <a href="/terms" target="_blank" className="text-[#1E3A8A] underline">
             Terms and Conditions
@@ -119,7 +119,7 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
         <button
           onClick={onBack}
           type="button"
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-200 text-gray-800 hover:bg-gray-300 transition"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-200 text-[#2C2F33] hover:bg-gray-300 transition"
         >
           <ArrowLeft className="w-5 h-5" /> Back
         </button>
@@ -130,7 +130,7 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
           disabled={!agreed}
           className={`py-2 px-6 rounded-xl transition text-white ${
             agreed
-              ? "bg-[#B08D57] hover:bg-[#1E3A8A]"
+              ? "bg-black hover:bg-[#C8102E]"
               : "bg-gray-400 cursor-not-allowed"
           }`}
         >

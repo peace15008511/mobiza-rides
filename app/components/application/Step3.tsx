@@ -67,7 +67,7 @@ export default function Step3({
   onBack,
 }: Props) {
   const handleSelect = (id: string) => {
-    setFormData({ package: id });
+    setFormData({ ...formData, package: id });
   };
 
   return (
@@ -78,7 +78,7 @@ export default function Step3({
       }}
       className="space-y-6"
     >
-      <h2 className="text-2xl font-bold text-[#B08D57]">
+      <h2 className="text-2xl font-bold text-[#C8102E]">
         Step 3: Select Package
       </h2>
 
@@ -89,7 +89,7 @@ export default function Step3({
             onClick={() => handleSelect(pkg.id)}
             className={`cursor-pointer transition-transform transform ${
               formData.package === pkg.id
-                ? "ring-2 ring-[#1E3A8A]"
+                ? "ring-2 ring-[#C8102E]"
                 : "hover:shadow-lg"
             } ${pkg.color} rounded-xl p-4 flex flex-col gap-4`}
           >
@@ -105,15 +105,15 @@ export default function Step3({
                 <h3 className="text-lg font-bold text-[#2C2F33]">
                   {pkg.packageName}
                 </h3>
-                <p className="text-sm text-gray-600">{pkg.description}</p>
-                <p className="mt-1 font-semibold text-[#B08D57]">{pkg.price}</p>
+                <p className="text-sm text-[#4B4B4B]">{pkg.description}</p>
+                <p className="mt-1 font-semibold text-[#C8102E]">{pkg.price}</p>
               </div>
               {formData.package === pkg.id && (
-                <CheckCircle className="text-[#1E3A8A]" size={24} />
+                <CheckCircle className="text-[#C8102E]" size={24} />
               )}
             </div>
 
-            <div className="text-sm text-gray-700">
+            <div className="text-sm text-[#2C2F33]">
               <p className="font-semibold">Included:</p>
               <ul className="list-disc ml-5">
                 {pkg.featuresIncluded.map((f, i) => (
@@ -122,10 +122,10 @@ export default function Step3({
               </ul>
               {pkg.featuresNotIncluded.length > 0 && (
                 <>
-                  <p className="font-semibold mt-2 text-gray-500">
+                  <p className="font-semibold mt-2 text-[#7F7F7F]">
                     Not Included:
                   </p>
-                  <ul className="list-disc ml-5 text-gray-400">
+                  <ul className="list-disc ml-5 text-[#A9A9A9]">
                     {pkg.featuresNotIncluded.map((f, i) => (
                       <li key={i}>{f}</li>
                     ))}
@@ -141,7 +141,7 @@ export default function Step3({
         <button
           type="button"
           onClick={onBack}
-          className="flex items-center gap-1 px-4 py-2 rounded-xl bg-gray-200 text-gray-800 hover:bg-gray-300 transition"
+          className="flex items-center gap-1 px-4 py-2 rounded-xl bg-gray-200 text-[#2C2F33] hover:bg-gray-300 transition"
         >
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
@@ -149,7 +149,7 @@ export default function Step3({
         <button
           type="submit"
           disabled={!formData.package}
-          className="flex items-center justify-center gap-2 bg-[#B08D57] text-white py-2 px-6 rounded-xl hover:bg-[#1E3A8A] transition disabled:opacity-50"
+          className="flex items-center justify-center gap-2 bg-black text-white py-2 px-6 rounded-xl transition hover:bg-[#C8102E] hover:border-[#C8102E] disabled:opacity-50"
         >
           Next <ArrowRight className="w-4 h-4" />
         </button>
