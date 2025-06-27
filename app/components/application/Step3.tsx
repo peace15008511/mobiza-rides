@@ -48,7 +48,7 @@ const bikePackages = [
     description:
       "Designed for businesses renting 3+ bikes with full maintenance.",
     image: "/images/BigBoy1Cargo.jpg",
-    price: "R650-R1,100/week",
+    price: "R650–R1,100/week",
     featuresIncluded: [
       "BigBoy Velocity 150cc or 250cc",
       "Helmet, USB, cellphone holder, crashbar, reinforced bracket & top box",
@@ -138,6 +138,7 @@ export default function Step3({
       </div>
 
       <div className="flex justify-between pt-4">
+        {/* Back Button */}
         <button
           type="button"
           onClick={onBack}
@@ -146,10 +147,15 @@ export default function Step3({
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
 
+        {/* Next Button with gradient */}
         <button
           type="submit"
           disabled={!formData.package}
-          className="flex items-center justify-center gap-2 bg-black text-white py-2 px-6 rounded-xl transition hover:bg-[#C8102E] hover:border-[#C8102E] disabled:opacity-50"
+          className={`flex items-center justify-center gap-2 py-2 px-6 rounded-xl text-white transition duration-300 ${
+            formData.package
+              ? "bg-gradient-to-r from-black to-[#C8102E] hover:from-[#C8102E] hover:to-[#C8102E]"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
         >
           Next <ArrowRight className="w-4 h-4" />
         </button>

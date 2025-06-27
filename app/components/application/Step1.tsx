@@ -99,16 +99,16 @@ export default function Step1({ formData, setFormData, onNext }: Props) {
         </label>
       </div>
 
-      {/* Submit Button */}
+      {/* Submit Button with Gradient */}
       <button
         type="submit"
         className="
-    w-full flex items-center justify-center gap-2
-    bg-black text-white
-    py-3 px-6 rounded-xl
-    transition duration-300
-    hover:bg-[#C8102E] hover:text-white
-  "
+          w-full flex items-center justify-center gap-2
+          text-white py-3 px-6 rounded-xl
+          bg-gradient-to-r from-black to-[#C8102E]
+          transition duration-300
+          hover:bg-[#C8102E] hover:from-[#C8102E] hover:to-[#C8102E]
+        "
       >
         Next <ArrowRight className="w-4 h-4" />
       </button>

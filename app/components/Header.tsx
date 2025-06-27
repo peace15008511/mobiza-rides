@@ -26,10 +26,10 @@ export default function Header() {
 
   return (
     <>
-      {/* Header */}
+      {/* Fixed Full Header (Top Banner + Main Header) */}
       <div className="fixed top-0 left-0 w-full z-50">
         {/* Top Banner */}
-        <div className="flex justify-between items-center bg-black text-white text-xs sm:text-sm px-4 md:px-6 py-2 border-b border-neutral-800">
+        <div className="flex justify-between items-center bg-black text-white text-xs sm:text-sm px-4 md:px-6 py-2 border-b border-neutral-800 h-[32px]">
           <span className="font-medium">
             012 533 9942 | support@mobizarides.com
           </span>
@@ -39,16 +39,16 @@ export default function Header() {
         </div>
 
         {/* Main Header */}
-        <header className="bg-black shadow-md w-full">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-            {/* Logo linking to home */}
-            <Link href="/" className="flex items-center h-[256px]">
+        <header className="bg-black shadow-md w-full h-[64px]">
+          <div className="w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between h-full">
+            {/* Logo */}
+            <Link href="/" className="flex items-center h-[180px] pl-4 sm:pl-6">
               <Image
                 src="/images/mobizarideslogo.png"
                 alt="Mobiza Rides Logo"
-                width={880}
-                height={256}
-                className="h-[256px] w-auto object-contain hover:opacity-90 transition-opacity duration-300"
+                width={586}
+                height={180}
+                className="h-[180px] w-auto object-contain hover:opacity-90 transition-opacity duration-300"
                 priority
               />
             </Link>
@@ -75,7 +75,7 @@ export default function Header() {
               </Link>
             </nav>
 
-            {/* Mobile Toggle */}
+            {/* Mobile Menu Button */}
             <button
               className="md:hidden p-2 rounded-md text-white hover:text-[#C8102E] focus:outline-none transition-colors"
               onClick={() => setIsOpen(!isOpen)}
@@ -100,7 +100,7 @@ export default function Header() {
         />
       )}
 
-      {/* Mobile Drawer */}
+      {/* Slide-In Drawer */}
       <div
         ref={drawerRef}
         className={`fixed top-[96px] left-0 h-[calc(100%-96px)] w-72 p-6 flex flex-col bg-black backdrop-blur-md shadow-xl z-50 transform transition-transform duration-500 ease-in-out ${
@@ -133,7 +133,8 @@ export default function Header() {
           </a>
           <Link
             href="/apply"
-            className="ml-4 flex items-center font-extrabold text-white border border-white px-4 py-2 hover:text-[#C8102E] hover:border-[#C8102E] transition-colors duration-300 text-sm"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 py-4 border-t border-b border-neutral-700 cursor-pointer hover:text-[#C8102E] transition-colors duration-300"
           >
             Apply now
           </Link>

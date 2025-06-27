@@ -105,6 +105,7 @@ export default function Step2({
 
       {/* Navigation Buttons */}
       <div className="flex justify-between gap-4 pt-2">
+        {/* Back Button (Plain Gray) */}
         <button
           type="button"
           onClick={onBack}
@@ -113,16 +114,16 @@ export default function Step2({
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
 
+        {/* Next Button with Gradient */}
         <button
           type="submit"
           className="
             flex items-center justify-center gap-2
-            bg-black text-white
-            py-2 px-6 rounded-xl
-            border-2 border-transparent
-            transition
+            py-2 px-6 rounded-xl text-white
+            bg-gradient-to-r from-black to-[#C8102E]
+            transition duration-300
             hover:bg-[#C8102E]
-            hover:border-[#C8102E]
+            hover:from-[#C8102E] hover:to-[#C8102E]
           "
         >
           Next <ArrowRight className="w-4 h-4" />

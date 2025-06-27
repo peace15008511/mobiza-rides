@@ -128,9 +128,9 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
           onClick={onSubmit}
           type="button"
           disabled={!agreed}
-          className={`py-2 px-6 rounded-xl transition text-white ${
+          className={`py-2 px-6 rounded-xl text-white transition duration-300 ${
             agreed
-              ? "bg-black hover:bg-[#C8102E]"
+              ? "bg-gradient-to-r from-black to-[#C8102E] hover:from-[#C8102E] hover:to-[#C8102E]"
               : "bg-gray-400 cursor-not-allowed"
           }`}
         >

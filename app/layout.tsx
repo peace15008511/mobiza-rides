@@ -24,25 +24,25 @@ const poppins = Poppins({
 
 // Metadata
 export const metadata: Metadata = {
-  title: "Mobiza – Delivery Bike Rentals for Riders",
+  title: "MobiZA Rides - Delivery Bike Rentals",
   description:
     "Affordable, legal delivery bikes for MR D, Uber Eats, and Bolt Food riders from just R650/week. Apply online – fast, paperless process.",
-  metadataBase: new URL("https://mobiza.co.za"),
+  metadataBase: new URL("https://mobizarides.com"),
   openGraph: {
-    title: "Mobiza Rentals",
+    title: "MobiZA Rides",
     description:
       "Get your delivery bike from Mobiza Rentals. No paperwork, no queues. 100% online – built for MR D, Uber Eats, and Bolt Food riders.",
-    url: "https://mobiza.co.za",
-    siteName: "Mobiza Rentals",
+    url: "https://mobizarides.com",
+    siteName: "MobiZA Rides",
     locale: "en_ZA",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mobiza Rentals",
+    title: "MobiZA Rides",
     description:
       "Rent a delivery bike from R650/week. Easy online application for food delivery riders. Start earning with Mobiza today.",
-    creator: "@mobiza_rentals", // Update if you have an actual Twitter handle
+    creator: "@MobiZA_Rides", // Update if you have an actual Twitter handle
   },
 };
 

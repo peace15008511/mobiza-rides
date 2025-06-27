@@ -75,14 +75,15 @@ export default function Step4({ onNext, onBack }: Props) {
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
 
-        {/* Next Button */}
+        {/* Next Button with gradient */}
         <button
           type="submit"
           className="
             flex items-center justify-center gap-2
-            bg-black text-white py-2 px-6 rounded-xl
-            hover:bg-[#C8102E] hover:text-white
-            transition
+            bg-gradient-to-r from-black to-[#C8102E]
+            hover:from-[#C8102E] hover:to-[#C8102E]
+            text-white py-2 px-6 rounded-xl
+            transition duration-300
           "
         >
           Next <ArrowRight className="w-4 h-4" />
