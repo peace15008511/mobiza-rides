@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
 
 import Step1 from "@/components/application/Step1";
 import Step2 from "@/components/application/Step2";
@@ -14,29 +16,24 @@ import Modal from "@/components/Modal";
 export default function ApplyPage() {
   const [step, setStep] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
 
   const [formData, setFormDataState] = useState({
-    // Personal Info
     firstName: "",
     surname: "",
     email: "",
     phoneNumber: "",
-
-    // Address Info
     address: "",
     city: "",
     province: "",
     zipCode: "",
-
-    // Package Selection
-    package: "", // 'individual' or 'business'
+    package: "",
     bikeQuantity: 1,
     servicePlan: false,
     maintenancePlan: false,
   });
 
-  // This accepts only partial updates and merges into existing formData
   const setFormData = (newData: Partial<typeof formData>) => {
     setFormDataState((prev) => ({ ...prev, ...newData }));
   };
@@ -66,7 +63,7 @@ export default function ApplyPage() {
       formData={formData}
       setFormData={setFormData}
       onNext={nextStep}
-      onBack={prevStep} // Add onBack here so Step2 has a Back button if needed
+      onBack={prevStep}
     />,
     <Step3
       key="step3"
@@ -90,28 +87,62 @@ export default function ApplyPage() {
   ];
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-extrabold text-[#000000] text-center mb-6">
-        Mobiza Rides Application
-      </h1>
+    <div className="relative min-h-screen bg-[#FDFCFB]">
+      {/* Top Floating Menu */}
+      <div className="fixed top-4 left-4 z-50 flex items-center space-x-4">
+        {/* Menu Toggle */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="bg-black text-white rounded-md p-2 hover:bg-[#C8102E] transition"
+        >
+          {menuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
 
-      <ProgressBar currentStep={step + 1} totalSteps={steps.length} />
+        {/* Right-expanding nav items */}
+        {menuOpen && (
+          <div className="flex items-center space-x-4 bg-white shadow-md px-4 py-2 rounded-lg">
+            <Link
+              href="/"
+              className="text-black font-semibold hover:text-[#C8102E] transition"
+            >
+              Home
+            </Link>
+            <a
+              href="https://wa.me/27761234567"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-black font-semibold hover:text-[#C8102E] transition"
+            >
+              WhatsApp
+            </a>
+          </div>
+        )}
+      </div>
 
-      <div className="bg-white p-6 shadow-md rounded-lg">{steps[step]}</div>
+      {/* Main Application Content */}
+      <div className="max-w-2xl mx-auto p-6 pt-20">
+        <h1 className="text-3xl font-extrabold text-[#000000] text-center mb-6">
+          Mobiza Rides Application
+        </h1>
 
-      <Modal
-        isOpen={showModal}
-        onClose={handleModalClose}
-        title="Application Submitted Successfully"
-      >
-        <p className="text-gray-700 mb-2">
-          Thank you for applying! We're reviewing your application.
-        </p>
-        <p className="text-sm text-gray-500">
-          You’ll be notified shortly. Once approved, you’ll be able to make
-          payment.
-        </p>
-      </Modal>
+        <ProgressBar currentStep={step + 1} totalSteps={steps.length} />
+
+        <div className="bg-white p-6 shadow-md rounded-lg">{steps[step]}</div>
+
+        <Modal
+          isOpen={showModal}
+          onClose={handleModalClose}
+          title="Application Submitted Successfully"
+        >
+          <p className="text-gray-700 mb-2">
+            Thank you for applying! We're reviewing your application.
+          </p>
+          <p className="text-sm text-gray-500">
+            You’ll be notified shortly. Once approved, you’ll be able to make
+            payment.
+          </p>
+        </Modal>
+      </div>
     </div>
   );
 }
