@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
 import Step1 from "@/components/application/Step1";
 import Step2 from "@/components/application/Step2";
 import Step3 from "@/components/application/Step3";
@@ -16,17 +17,26 @@ export default function ApplyPage() {
   const router = useRouter();
 
   const [formData, setFormDataState] = useState({
+    // Personal Info
     firstName: "",
     surname: "",
     email: "",
     phoneNumber: "",
+
+    // Address Info
     address: "",
     city: "",
     province: "",
     zipCode: "",
-    package: "",
+
+    // Package Selection
+    package: "", // 'individual' or 'business'
+    bikeQuantity: 1,
+    servicePlan: false,
+    maintenancePlan: false,
   });
 
+  // This accepts only partial updates and merges into existing formData
   const setFormData = (newData: Partial<typeof formData>) => {
     setFormDataState((prev) => ({ ...prev, ...newData }));
   };
@@ -41,30 +51,41 @@ export default function ApplyPage() {
 
   const handleModalClose = () => {
     setShowModal(false);
-    router.push("/"); // Redirect to home
+    router.push("/");
   };
 
   const steps = [
-    <Step1 formData={formData} setFormData={setFormData} onNext={nextStep} />,
-    <Step2
+    <Step1
+      key="step1"
       formData={formData}
       setFormData={setFormData}
       onNext={nextStep}
-      onBack={prevStep}
+    />,
+    <Step2
+      key="step2"
+      formData={formData}
+      setFormData={setFormData}
+      onNext={nextStep}
+      onBack={prevStep} // Add onBack here so Step2 has a Back button if needed
     />,
     <Step3
+      key="step3"
       formData={formData}
       setFormData={setFormData}
       onNext={nextStep}
       onBack={prevStep}
     />,
-    <Step4 onNext={nextStep} onBack={prevStep} />,
+    <Step4
+      key="step4"
+      formData={formData}
+      onNext={nextStep}
+      onBack={prevStep}
+    />,
     <Step5
+      key="step5"
       formData={formData}
       onBack={prevStep}
-      onSubmit={() => {
-        setShowModal(true);
-      }}
+      onSubmit={() => setShowModal(true)}
     />,
   ];
 
@@ -75,6 +96,7 @@ export default function ApplyPage() {
       </h1>
 
       <ProgressBar currentStep={step + 1} totalSteps={steps.length} />
+
       <div className="bg-white p-6 shadow-md rounded-lg">{steps[step]}</div>
 
       <Modal

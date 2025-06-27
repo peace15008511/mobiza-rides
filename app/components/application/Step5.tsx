@@ -10,51 +10,26 @@ type Props = {
   onSubmit: () => void;
 };
 
-const bikePackages = [
-  {
-    id: "starter",
-    packageName: "Starter Package",
-    name: "BigBoy Velocity 150cc",
-    description: "A basic package for new riders getting started.",
-    image: "/images/BigBoy1Cargo.jpg",
-    price: "R650/week",
-    color: "bg-[#F9F4EF]",
-  },
-  {
-    id: "pro",
-    packageName: "Pro Rider Package",
-    name: "BigBoy Velocity 150cc",
-    description:
-      "Best for riders who want peace of mind with service coverage.",
-    image: "/images/BigBoy1Cargo.jpg",
-    price: "R950/week",
-    color: "bg-[#FFF9F0]",
-  },
-  {
-    id: "business",
-    packageName: "Business Package",
-    name: "BigBoy Velocity 150cc or 250cc",
-    description:
-      "Designed for businesses renting 3+ bikes with full maintenance.",
-    image: "/images/BigBoy1Cargo.jpg",
-    price: "R650–R1,100/week",
-    color: "bg-[#EFF7F6]",
-  },
-];
+const basePrice = 700;
+const addOnPrice = (count: number) => (count > 4 ? 75 : 150);
 
 export default function Step5({ formData, onBack, onSubmit }: Props) {
   const [agreed, setAgreed] = useState(false);
-  const selectedPackage = bikePackages.find(
-    (pkg) => pkg.id === formData.package
-  );
+
+  const isBusiness = formData.package === "business";
+  const quantity = isBusiness ? formData.bikeQuantity || 1 : 1;
+  const service = formData.servicePlan ? addOnPrice(quantity) : 0;
+  const maintenance = formData.maintenancePlan ? addOnPrice(quantity) : 0;
+  const totalWeekly = (basePrice + service + maintenance) * quantity;
 
   return (
-    <div className="space-y-6 bg-white rounded-2xl shadow-lg p-8">
+    <div className="space-y-6">
       <h2 className="text-2xl font-bold text-[#C8102E]">
         Step 5: Review & Submit
       </h2>
 
-      <div className="text-[#2C2F33] space-y-2">
+      {/* Personal Info */}
+      <div className="text-[#2C2F33] space-y-2 text-sm">
         <p>
           <strong>First Name:</strong> {formData.firstName}
         </p>
@@ -73,31 +48,51 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
         </p>
       </div>
 
-      {selectedPackage && (
-        <div
-          className={`${selectedPackage.color} rounded-xl p-4 shadow-md flex gap-4`}
-        >
-          <Image
-            src={selectedPackage.image}
-            alt={selectedPackage.packageName}
-            width={100}
-            height={100}
-            className="rounded-lg object-cover"
-          />
-          <div>
-            <h3 className="text-lg font-semibold text-[#2C2F33]">
-              {selectedPackage.packageName}
-            </h3>
-            <p className="text-sm text-gray-700">
-              {selectedPackage.description}
-            </p>
-            <p className="mt-1 font-semibold text-[#C8102E]">
-              {selectedPackage.price}
-            </p>
-          </div>
-        </div>
-      )}
+      {/* Package Summary */}
+      <div
+        className={`${
+          isBusiness ? "bg-[#EFF7F6]" : "bg-[#F9F4EF]"
+        } rounded-xl p-4 shadow-md flex gap-4`}
+      >
+        <Image
+          src="/images/BigBoy1Cargo.jpg"
+          alt="BigBoy Velocity 150cc"
+          width={100}
+          height={100}
+          className="rounded-lg object-cover"
+        />
+        <div>
+          <h3 className="text-lg font-semibold text-[#2C2F33]">
+            {isBusiness ? "Business Package" : "Individual Package"}
+          </h3>
+          <p className="text-sm text-gray-700">
+            BigBoy Velocity 150cc rental
+            {isBusiness ? ` for ${quantity} bike(s)` : ""}
+          </p>
 
+          <ul className="mt-2 text-sm text-[#2C2F33] list-disc ml-4">
+            <li>Base rental: R{basePrice}/week</li>
+            {formData.servicePlan && (
+              <li>
+                Service Plan: R{service}
+                {isBusiness ? "/bike" : ""}/week
+              </li>
+            )}
+            {formData.maintenancePlan && (
+              <li>
+                Maintenance Plan: R{maintenance}
+                {isBusiness ? "/bike" : ""}/week
+              </li>
+            )}
+          </ul>
+
+          <p className="mt-2 font-semibold text-[#C8102E]">
+            Total: R{totalWeekly}/week
+          </p>
+        </div>
+      </div>
+
+      {/* Agreement */}
       <div className="flex items-start space-x-2 pt-2">
         <input
           type="checkbox"
@@ -115,6 +110,7 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
         </label>
       </div>
 
+      {/* Buttons */}
       <div className="flex justify-between pt-4">
         <button
           onClick={onBack}

@@ -4,7 +4,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 
 type Props = {
   formData: any;
-  setFormData: (data: any) => void;
+  setFormData: (data: Partial<any>) => void;
   onNext: () => void;
   onBack: () => void;
 };
@@ -21,91 +21,86 @@ export default function Step2({
         e.preventDefault();
         onNext();
       }}
-      className="bg-white rounded-2xl shadow-lg p-8 space-y-6"
+      className="space-y-6"
     >
-      <h2 className="text-2xl font-bold text-[#C8102E]">Step 2: Address</h2>
+      <h2 className="text-2xl font-bold text-[#C8102E]">
+        Step 2: Your Details
+      </h2>
 
-      {/* Street Address */}
+      {/* First Name */}
       <div className="relative">
         <input
           type="text"
-          id="address"
+          id="firstName"
           required
-          value={formData.address || ""}
-          onChange={(e) =>
-            setFormData({ ...formData, address: e.target.value })
-          }
+          value={formData.firstName || ""}
+          onChange={(e) => setFormData({ firstName: e.target.value })}
           className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
         />
         <label
-          htmlFor="address"
+          htmlFor="firstName"
           className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
         >
-          Street Address
+          First Name
         </label>
       </div>
 
-      {/* City / Town */}
+      {/* Surname */}
       <div className="relative">
         <input
           type="text"
-          id="city"
+          id="surname"
           required
-          value={formData.city || ""}
-          onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+          value={formData.surname || ""}
+          onChange={(e) => setFormData({ surname: e.target.value })}
           className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
         />
         <label
-          htmlFor="city"
+          htmlFor="surname"
           className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
         >
-          City / Town
+          Surname
         </label>
       </div>
 
-      {/* Province */}
+      {/* Email */}
       <div className="relative">
         <input
-          type="text"
-          id="province"
+          type="email"
+          id="email"
           required
-          value={formData.province || ""}
-          onChange={(e) =>
-            setFormData({ ...formData, province: e.target.value })
-          }
+          value={formData.email || ""}
+          onChange={(e) => setFormData({ email: e.target.value })}
           className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
         />
         <label
-          htmlFor="province"
+          htmlFor="email"
           className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
         >
-          Province
+          Email Address
         </label>
       </div>
 
-      {/* Zip Code */}
+      {/* Phone Number */}
       <div className="relative">
         <input
-          type="text"
-          id="zipCode"
+          type="tel"
+          id="phone"
           required
-          value={formData.zipCode || ""}
-          onChange={(e) =>
-            setFormData({ ...formData, zipCode: e.target.value })
-          }
+          value={formData.phoneNumber || ""}
+          onChange={(e) => setFormData({ phoneNumber: e.target.value })}
           className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
         />
         <label
-          htmlFor="zipCode"
+          htmlFor="phone"
           className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
         >
-          Zip Code
+          Phone Number
         </label>
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex justify-between gap-4 pt-2">
-        {/* Back Button (Plain Gray) */}
+      <div className="flex justify-between pt-4">
         <button
           type="button"
           onClick={onBack}
@@ -113,18 +108,9 @@ export default function Step2({
         >
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
-
-        {/* Next Button with Gradient */}
         <button
           type="submit"
-          className="
-            flex items-center justify-center gap-2
-            py-2 px-6 rounded-xl text-white
-            bg-gradient-to-r from-black to-[#C8102E]
-            transition duration-300
-            hover:bg-[#C8102E]
-            hover:from-[#C8102E] hover:to-[#C8102E]
-          "
+          className="flex items-center justify-center gap-2 py-2 px-6 rounded-xl text-white bg-gradient-to-r from-black to-[#C8102E] hover:from-[#C8102E] hover:to-[#C8102E] transition duration-300"
         >
           Next <ArrowRight className="w-4 h-4" />
         </button>

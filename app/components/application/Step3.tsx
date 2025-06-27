@@ -1,7 +1,6 @@
 "use client";
 
-import { ArrowRight, ArrowLeft, CheckCircle } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 
 type Props = {
   formData: any;
@@ -10,66 +9,12 @@ type Props = {
   onBack: () => void;
 };
 
-const bikePackages = [
-  {
-    id: "starter",
-    packageName: "Starter Package",
-    name: "BigBoy Velocity 150cc",
-    description: "A basic package for new riders getting started.",
-    image: "/images/BigBoy1Cargo.jpg",
-    price: "R650/week",
-    featuresIncluded: [
-      "BigBoy Velocity 150cc",
-      "Helmet, USB, cellphone holder, crashbar, reinforced bracket & top box",
-    ],
-    featuresNotIncluded: ["Service Plan", "Maintenance Plan"],
-    color: "bg-[#F9F4EF]",
-  },
-  {
-    id: "pro",
-    packageName: "Pro Rider Package",
-    name: "BigBoy Velocity 150cc",
-    description:
-      "Best for riders who want peace of mind with service coverage.",
-    image: "/images/BigBoy1Cargo.jpg",
-    price: "R950/week",
-    featuresIncluded: [
-      "BigBoy Velocity 150cc",
-      "Helmet, USB, cellphone holder, crashbar, reinforced bracket & top box",
-      "Service Plan",
-    ],
-    featuresNotIncluded: ["Maintenance Plan"],
-    color: "bg-[#FFF9F0]",
-  },
-  {
-    id: "business",
-    packageName: "Business Package",
-    name: "BigBoy Velocity 150cc or 250cc",
-    description:
-      "Designed for businesses renting 3+ bikes with full maintenance.",
-    image: "/images/BigBoy1Cargo.jpg",
-    price: "R650–R1,100/week",
-    featuresIncluded: [
-      "BigBoy Velocity 150cc or 250cc",
-      "Helmet, USB, cellphone holder, crashbar, reinforced bracket & top box",
-      "Service Plan",
-      "Full Maintenance Plan (repairs, wear & tear included)",
-    ],
-    featuresNotIncluded: ["Only available for 3+ bikes", "Rider"],
-    color: "bg-[#EFF7F6]",
-  },
-];
-
 export default function Step3({
   formData,
   setFormData,
   onNext,
   onBack,
 }: Props) {
-  const handleSelect = (id: string) => {
-    setFormData({ ...formData, package: id });
-  };
-
   return (
     <form
       onSubmit={(e) => {
@@ -78,67 +23,88 @@ export default function Step3({
       }}
       className="space-y-6"
     >
-      <h2 className="text-2xl font-bold text-[#C8102E]">
-        Step 3: Select Package
-      </h2>
+      <h2 className="text-2xl font-bold text-[#C8102E]">Step 3: Address</h2>
 
-      <div className="grid gap-6">
-        {bikePackages.map((pkg) => (
-          <div
-            key={pkg.id}
-            onClick={() => handleSelect(pkg.id)}
-            className={`cursor-pointer transition-transform transform ${
-              formData.package === pkg.id
-                ? "ring-2 ring-[#C8102E]"
-                : "hover:shadow-lg"
-            } ${pkg.color} rounded-xl p-4 flex flex-col gap-4`}
-          >
-            <div className="flex items-center gap-4">
-              <Image
-                src={pkg.image}
-                alt={pkg.packageName}
-                width={80}
-                height={80}
-                className="rounded-lg object-cover"
-              />
-              <div className="flex-1">
-                <h3 className="text-lg font-bold text-[#2C2F33]">
-                  {pkg.packageName}
-                </h3>
-                <p className="text-sm text-[#4B4B4B]">{pkg.description}</p>
-                <p className="mt-1 font-semibold text-[#C8102E]">{pkg.price}</p>
-              </div>
-              {formData.package === pkg.id && (
-                <CheckCircle className="text-[#C8102E]" size={24} />
-              )}
-            </div>
-
-            <div className="text-sm text-[#2C2F33]">
-              <p className="font-semibold">Included:</p>
-              <ul className="list-disc ml-5">
-                {pkg.featuresIncluded.map((f, i) => (
-                  <li key={i}>{f}</li>
-                ))}
-              </ul>
-              {pkg.featuresNotIncluded.length > 0 && (
-                <>
-                  <p className="font-semibold mt-2 text-[#7F7F7F]">
-                    Not Included:
-                  </p>
-                  <ul className="list-disc ml-5 text-[#A9A9A9]">
-                    {pkg.featuresNotIncluded.map((f, i) => (
-                      <li key={i}>{f}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
-            </div>
-          </div>
-        ))}
+      {/* Street Address */}
+      <div className="relative">
+        <input
+          type="text"
+          id="address"
+          required
+          value={formData.address || ""}
+          onChange={(e) =>
+            setFormData({ ...formData, address: e.target.value })
+          }
+          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
+        />
+        <label
+          htmlFor="address"
+          className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
+        >
+          Street Address
+        </label>
       </div>
 
+      {/* City / Town */}
+      <div className="relative">
+        <input
+          type="text"
+          id="city"
+          required
+          value={formData.city || ""}
+          onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
+        />
+        <label
+          htmlFor="city"
+          className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
+        >
+          City / Town
+        </label>
+      </div>
+
+      {/* Province */}
+      <div className="relative">
+        <input
+          type="text"
+          id="province"
+          required
+          value={formData.province || ""}
+          onChange={(e) =>
+            setFormData({ ...formData, province: e.target.value })
+          }
+          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
+        />
+        <label
+          htmlFor="province"
+          className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
+        >
+          Province
+        </label>
+      </div>
+
+      {/* Zip Code */}
+      <div className="relative">
+        <input
+          type="text"
+          id="zipCode"
+          required
+          value={formData.zipCode || ""}
+          onChange={(e) =>
+            setFormData({ ...formData, zipCode: e.target.value })
+          }
+          className="peer w-full border border-gray-300 rounded-xl px-4 pt-6 pb-2 text-[#2C2F33] focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
+        />
+        <label
+          htmlFor="zipCode"
+          className="absolute left-4 top-2 text-sm text-[#2C2F33] peer-focus:text-black peer-focus:text-xs peer-focus:top-1 transition-all"
+        >
+          Zip Code
+        </label>
+      </div>
+
+      {/* Navigation Buttons */}
       <div className="flex justify-between pt-4">
-        {/* Back Button */}
         <button
           type="button"
           onClick={onBack}
@@ -146,16 +112,9 @@ export default function Step3({
         >
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
-
-        {/* Next Button with gradient */}
         <button
           type="submit"
-          disabled={!formData.package}
-          className={`flex items-center justify-center gap-2 py-2 px-6 rounded-xl text-white transition duration-300 ${
-            formData.package
-              ? "bg-gradient-to-r from-black to-[#C8102E] hover:from-[#C8102E] hover:to-[#C8102E]"
-              : "bg-gray-400 cursor-not-allowed"
-          }`}
+          className="flex items-center justify-center gap-2 py-2 px-6 rounded-xl text-white bg-gradient-to-r from-black to-[#C8102E] hover:from-[#C8102E] hover:to-[#C8102E] transition duration-300"
         >
           Next <ArrowRight className="w-4 h-4" />
         </button>
