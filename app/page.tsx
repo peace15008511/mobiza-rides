@@ -5,7 +5,9 @@ import AboutSection from "@/components/landing/AboutSection";
 import PackagesSection from "@/components/landing/PackagesSection";
 import RequirementsSection from "@/components/landing/RequirementsSection";
 import HowItWorksSection from "@/components/landing/HowItWorksSection";
-import BloggerSection from "./components/landing/BloggerSection";
+//import BloggerSection from "./components/landing/BloggerSection";
+import WhyRentWithUsSection from "./components/landing/WhyRentWithUsSection";
+import EnquireWithUsSection from "./components/landing/EnquireWithUsSection";
 
 export default function Home() {
   return (
@@ -15,9 +17,11 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <PackagesSection />
+        <WhyRentWithUsSection />
         <RequirementsSection />
         <HowItWorksSection />
-        <BloggerSection />
+        <EnquireWithUsSection />
+        {/*<BloggerSection />*/}
       </main>
       <Footer />
     </>

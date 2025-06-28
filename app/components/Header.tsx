@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import { X, Menu, Bike, Workflow } from "lucide-react";
+import { X, Menu, Bike, Workflow, Phone } from "lucide-react";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,6 +68,12 @@ export default function Header() {
                 How It Works
               </a>
               <Link
+                href="#enquire"
+                className="ml-4 font-extrabold hover:text-[#C8102E] transition-colors duration-300"
+              >
+                Contact Us
+              </Link>
+              <Link
                 href="/apply"
                 className="ml-4 flex items-center gap-2 font-extrabold text-white border border-white px-4 py-2 hover:text-[#C8102E] hover:border-[#C8102E] transition-colors duration-300 text-sm"
               >
@@ -131,6 +137,15 @@ export default function Header() {
             <Workflow className="w-6 h-6" />
             How It Works
           </a>
+          <Link
+            href="#enquire"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 py-4 border-t border-neutral-700 cursor-pointer hover:text-[#C8102E] transition-colors duration-300"
+          >
+            <Phone className="w-6 h-6" />
+            Contact Us
+          </Link>
+
           <Link
             href="/apply"
             onClick={() => setIsOpen(false)}

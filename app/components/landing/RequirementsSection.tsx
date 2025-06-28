@@ -2,10 +2,7 @@ import { Briefcase, UserCheck, FileText, MapPin, Phone } from "lucide-react";
 
 export default function RequirementsSection() {
   return (
-    <section
-      id="requirements"
-      className="py-16 border-t border-[#D3CEC4] w-full"
-    >
+    <section id="requirements" className="py-16 w-full">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 text-center">
         <h2 className="text-3xl font-bold text-[#2C2F33] mb-6">
           What is required?

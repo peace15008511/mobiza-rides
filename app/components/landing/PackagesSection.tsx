@@ -5,55 +5,38 @@ import Link from "next/link";
 
 const bikePackages = [
   {
-    packageName: "Starter Package",
+    packageName: "Individual Package",
     name: "BigBoy Velocity 150cc",
-    description: "A basic package for new riders getting started.",
+    description: "Affordable weekly rentals for individual riders.",
     image: "/images/BigBoy1Cargo.jpg",
-    price: "R650/week",
+    weeklyPrice: "R700/week (base)",
+    depositPrice: "R2000 deposit",
     featuresIncluded: [
       "BigBoy Velocity 150cc",
-      "Helmet, USB, cellphone holder, crashbar, reinforced bracket & top box",
+      "Helmet, USB cable, cellphone holder, crashbar, reinforced bracket & top box",
+      "Optional Service Plan (+R150/week)",
+      "Optional Maintenance Plan (+R150/week)",
     ],
-    featuresNotIncluded: ["Service Plan", "Maintenance Plan"],
     buttonText: "Apply Now",
     buttonLink: "/apply",
-    hoverColor: "hover:shadow-lg hover:scale-[1.02]",
-  },
-  {
-    packageName: "Pro Rider Package",
-    name: "BigBoy Velocity 150cc",
-    description:
-      "Best for riders who want peace of mind with service coverage.",
-    image: "/images/BigBoy1Cargo.jpg",
-    price: "R950/week",
-    featuresIncluded: [
-      "BigBoy Velocity 150cc",
-      "Helmet, USB, cellphone holder, crashbar, reinforced bracket & top box",
-      "Service Plan",
-    ],
-    featuresNotIncluded: ["Maintenance Plan"],
-    buttonText: "Apply Now",
-    buttonLink: "/apply",
-    hoverColor: "hover:shadow-xl hover:scale-[1.02]",
   },
   {
     packageName: "Business Package",
-    name: "BigBoy Velocity 150cc or 250cc",
+    name: "BigBoy Velocity 150cc",
     description:
-      "Designed for businesses renting 3+ bikes with full maintenance.",
+      "For businesses or trusted individuals renting multiple bikes.",
     image: "/images/BigBoy1Cargo.jpg",
-    image2: "/images/BigBoy2Cargo.png",
-    price: "R650-R1,100/week",
+    weeklyPrice: "R700–R1000/week per bike",
+    depositPrice: "R2000 deposit per bike",
     featuresIncluded: [
-      "BigBoy Velocity 150cc or 250cc",
-      "Helmet, USB, cellphone holder, crashbar, reinforced bracket & top box",
-      "Service Plan",
-      "Full Maintenance Plan (repairs, wear & tear included)",
+      "BigBoy Velocity 150cc",
+      "Helmet, USB cable, cellphone holder, crashbar, reinforced bracket & top box",
+      "Optional Service Plan (+R150/week)",
+      "Optional Maintenance Plan (+R150/week)",
+      "Discounted Service & Maintenance Plans for 5+ bikes",
     ],
-    featuresNotIncluded: ["Only available for 3+ bikes", "Rider"],
-    buttonText: "Contact Us",
-    buttonLink: "/contact",
-    hoverColor: "hover:shadow-2xl hover:scale-[1.02]",
+    buttonText: "Apply Now",
+    buttonLink: "/apply",
   },
 ];
 
@@ -61,90 +44,111 @@ export default function PackagesSection() {
   return (
     <section
       id="packages"
-      className="max-w-6xl mx-auto mb-20 px-6 sm:px-8 lg:px-16 py-12 "
+      className="max-w-6xl mx-auto mb-20 px-6 sm:px-8 lg:px-16 py-12"
     >
-      <h2 className="text-2xl sm:text-3xl font-bold text-[#2C2F33] mb-10 text-center">
+      <h2 className="text-3xl font-bold text-[#2C2F33] mb-12 text-center">
         Available Rental Packages
       </h2>
 
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {bikePackages.map((pkg, idx) => (
-          <div
-            key={idx}
-            className={`p-6 rounded-xl shadow border border-gray-300 bg-white transition-transform duration-300 ease-in-out ${pkg.hoverColor}`}
-          >
-            {/* Image logic */}
-            {pkg.image2 ? (
-              <div className="flex gap-4 mb-4">
-                {[pkg.image, pkg.image2].map((src, i) => (
-                  <div
-                    key={i}
-                    className="w-1/2 h-40 relative rounded-md overflow-hidden"
-                  >
-                    <Image
-                      src={src}
-                      alt={`${pkg.name} ${i + 1}`}
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-md"
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="w-full h-48 relative mb-4 rounded-md overflow-hidden">
-                <Image
-                  src={pkg.image}
-                  alt={pkg.name}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-md"
-                />
-              </div>
-            )}
+      <div className="grid gap-10 sm:grid-cols-2">
+        {bikePackages.map((pkg, idx) => {
+          const isBusiness = pkg.packageName === "Business Package";
 
-            <h3 className="text-xl font-semibold text-[#2C2F33] mb-2">
-              {pkg.packageName}
-            </h3>
-            <p className="text-gray-800 text-sm mb-4">{pkg.description}</p>
-
-            <h4 className="font-medium text-[#2C2F33] text-sm mb-1">
-              ✅ Included:
-            </h4>
-            <ul className="text-sm text-gray-800 mb-4 list-disc list-inside space-y-1">
-              {pkg.featuresIncluded.map((feature, i) => (
-                <li key={i}>{feature}</li>
-              ))}
-            </ul>
-
-            <h4 className="font-medium text-[#2C2F33] text-sm mb-1">
-              ❌ Not Included:
-            </h4>
-            <ul className="text-sm text-gray-500 mb-4 list-disc list-inside space-y-1">
-              {pkg.featuresNotIncluded.map((feature, i) => (
-                <li key={i}>{feature}</li>
-              ))}
-            </ul>
-
-            <p className="text-lg font-semibold text-[#2C2F33] mb-4">
-              {pkg.price}
-            </p>
-
-            <Link
-              href={pkg.buttonLink}
-              className="
-                inline-block px-5 py-2 rounded-md
-                border-2 border-[#C8102E]
-                text-[#C8102E]
-                transition
-                hover:text-white
-                hover:bg-gradient-to-r hover:from-[#C8102E] hover:via-[#A10B28] hover:to-[#7A091A]
-              "
+          return (
+            <div
+              key={idx}
+              className={`rounded-xl transition-transform duration-300 ease-in-out flex flex-col ${
+                isBusiness
+                  ? "bg-gradient-to-b from-white to-gray-800 hover:shadow-xl hover:scale-[1.02]"
+                  : "bg-white border border-gray-300 shadow-md hover:shadow-xl hover:scale-[1.02]"
+              }`}
             >
-              {pkg.buttonText}
-            </Link>
-          </div>
-        ))}
+              {/* Inner white card container for image + content padding */}
+              <div
+                className={`p-6 rounded-xl flex flex-col h-full ${
+                  isBusiness ? "text-white" : "text-gray-900"
+                }`}
+              >
+                {/* Image container remains white */}
+                <div className="relative w-full h-52 mb-5 rounded-md overflow-hidden drop-shadow-sm bg-white">
+                  <Image
+                    src={pkg.image}
+                    alt={pkg.name}
+                    fill
+                    style={{ objectFit: "contain" }}
+                    className="rounded-md"
+                    priority={idx === 0}
+                  />
+                </div>
+
+                <h3
+                  className={`text-2xl font-semibold mb-3 ${
+                    isBusiness ? "text-white" : "text-[#2C2F33]"
+                  }`}
+                >
+                  {pkg.packageName}
+                </h3>
+
+                <p
+                  className={`mb-5 ${
+                    isBusiness ? "text-white" : "text-gray-800"
+                  }`}
+                >
+                  {pkg.description}
+                </p>
+
+                <h4
+                  className={`font-semibold text-sm mb-3 ${
+                    isBusiness ? "text-white" : "text-[#2C2F33]"
+                  }`}
+                >
+                  Included:
+                </h4>
+
+                <ul
+                  className={`text-sm list-disc list-inside mb-6 space-y-1 ${
+                    isBusiness ? "text-white" : "text-gray-800"
+                  }`}
+                  style={{ paddingLeft: 0 }}
+                >
+                  {pkg.featuresIncluded.map((feature, i) => (
+                    <li key={i}>{feature}</li>
+                  ))}
+                </ul>
+
+                <div className="mb-6 space-y-1">
+                  <p
+                    className={`text-lg font-bold ${
+                      isBusiness ? "text-[#C8102E]" : "text-[#C8102E]"
+                    }`}
+                  >
+                    {pkg.weeklyPrice}
+                  </p>
+                  <p
+                    className={`text-sm font-medium ${
+                      isBusiness ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
+                    {pkg.depositPrice}
+                  </p>
+                </div>
+
+                <Link
+                  href={pkg.buttonLink}
+                  className={`mt-auto inline-block text-center px-6 py-3 rounded-md font-semibold transition
+                    ${
+                      isBusiness
+                        ? "bg-gradient-to-r from-black via-[#440000] to-[#C8102E] text-white border border-transparent hover:bg-[#C8102E]"
+                        : "border-2 border-[#C8102E] text-[#C8102E] hover:bg-gradient-to-r hover:from-[#C8102E] hover:via-[#A10B28] hover:to-[#7A091A] hover:text-white"
+                    }
+                  `}
+                >
+                  {pkg.buttonText}
+                </Link>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

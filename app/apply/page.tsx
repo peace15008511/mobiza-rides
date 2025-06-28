@@ -89,7 +89,8 @@ export default function ApplyPage() {
   return (
     <div className="relative min-h-screen bg-[#FDFCFB]">
       {/* Top Floating Menu */}
-      <div className="fixed top-4 left-4 z-50 flex items-center space-x-4">
+
+      <div className="fixed top-4 right-4 z-50 flex items-center justify-end space-x-4">
         {/* Menu Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}

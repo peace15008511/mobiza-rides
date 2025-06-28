@@ -26,7 +26,7 @@ export default function HeroSection() {
               hover:bg-transparent hover:text-black hover:border-black
               transition transform hover:scale-105 font-semibold text-lg"
           >
-            View Bikes
+            View bikes
           </Link>
 
           {/* Become a Rider - Outlined Black, Hover Solid Red */}
@@ -36,7 +36,7 @@ export default function HeroSection() {
               hover:bg-[#C8102E] hover:text-white hover:border-[#C8102E]
               transition transform hover:scale-105 font-semibold text-lg"
           >
-            Become a Rider
+            Get a ride now
           </Link>
         </div>
       </div>
