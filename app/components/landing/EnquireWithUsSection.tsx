@@ -16,10 +16,30 @@ export default function EnquireWithUsSection() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Connect to backend
-    console.log("Form submitted:", formData);
+
+    try {
+      const res = await fetch("/api/send-enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        alert("Enquiry sent successfully!");
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        const errorData = await res.json();
+        console.error("Submission failed:", errorData);
+        alert("Something went wrong. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert(
+        "An error occurred. Please check your internet connection or try again."
+      );
+    }
   };
 
   return (
