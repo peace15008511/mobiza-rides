@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Modal from "@/components/Modal";
 
 export default function EnquireWithUsSection() {
   const [formData, setFormData] = useState({
@@ -9,6 +10,10 @@ export default function EnquireWithUsSection() {
     phone: "",
     message: "",
   });
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -27,18 +32,26 @@ export default function EnquireWithUsSection() {
       });
 
       if (res.ok) {
-        alert("Enquiry sent successfully!");
+        setModalTitle("Enquiry Sent");
+        setModalContent(
+          "Thank you for contacting us. We'll respond within 24 hours."
+        );
+        setModalOpen(true);
         setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
         const errorData = await res.json();
         console.error("Submission failed:", errorData);
-        alert("Something went wrong. Please try again later.");
+        setModalTitle("Something Went Wrong");
+        setModalContent(
+          "Please try again later or contact us directly at info@mobizarides.com."
+        );
+        setModalOpen(true);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert(
-        "An error occurred. Please check your internet connection or try again."
-      );
+      setModalTitle("Error");
+      setModalContent("Check your internet connection or try again later.");
+      setModalOpen(true);
     }
   };
 
@@ -149,6 +162,15 @@ export default function EnquireWithUsSection() {
           </button>
         </form>
       </div>
+
+      {/* Success/Error Modal */}
+      <Modal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={modalTitle}
+      >
+        <p className="text-sm text-gray-700">{modalContent}</p>
+      </Modal>
     </section>
   );
 }
