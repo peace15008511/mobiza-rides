@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import Modal from "@/components/Modal";
 
 type Props = {
   formData: any;
@@ -15,12 +16,54 @@ const addOnPrice = (count: number) => (count > 4 ? 75 : 150);
 
 export default function Step5({ formData, onBack, onSubmit }: Props) {
   const [agreed, setAgreed] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState("");
 
   const isBusiness = formData.package === "business";
   const quantity = isBusiness ? formData.bikeQuantity || 1 : 1;
   const service = formData.servicePlan ? addOnPrice(quantity) : 0;
   const maintenance = formData.maintenancePlan ? addOnPrice(quantity) : 0;
   const totalWeekly = (basePrice + service + maintenance) * quantity;
+
+  const handleFinalSubmit = async () => {
+    try {
+      const formDataToSend = new FormData();
+
+      // Append all basic form fields
+      for (const key in formData) {
+        if (formData.hasOwnProperty(key)) {
+          const value = formData[key];
+          if (value instanceof FileList) {
+            // Multiple files
+            for (let i = 0; i < value.length; i++) {
+              formDataToSend.append(key, value[i]);
+            }
+          } else {
+            formDataToSend.append(key, value);
+          }
+        }
+      }
+
+      const res = await fetch("/api/submit-application", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      if (res.ok) {
+        setShowModal(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error submitting application:", err);
+      setError("Failed to submit. Please check your connection.");
+    }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    onSubmit();
+  };
 
   return (
     <div className="space-y-6">
@@ -66,8 +109,8 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
             {isBusiness ? "Business Package" : "Individual Package"}
           </h3>
           <p className="text-sm text-gray-700">
-            BigBoy Velocity 150cc rental
-            {isBusiness ? ` for ${quantity} bike(s)` : ""}
+            BigBoy Velocity 150cc rental{" "}
+            {isBusiness ? `for ${quantity} bike(s)` : ""}
           </p>
 
           <ul className="mt-2 text-sm text-[#2C2F33] list-disc ml-4">
@@ -110,6 +153,9 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
         </label>
       </div>
 
+      {/* Error */}
+      {error && <p className="text-red-600 text-sm">{error}</p>}
+
       {/* Buttons */}
       <div className="flex justify-between pt-4">
         <button
@@ -121,7 +167,7 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
         </button>
 
         <button
-          onClick={onSubmit}
+          onClick={handleFinalSubmit}
           type="button"
           disabled={!agreed}
           className={`py-2 px-6 rounded-xl text-white transition duration-300 ${
@@ -133,6 +179,17 @@ export default function Step5({ formData, onBack, onSubmit }: Props) {
           Submit Application
         </button>
       </div>
+
+      <Modal
+        isOpen={showModal}
+        onClose={closeModal}
+        title="Application Submitted"
+      >
+        <p className="text-sm text-gray-700">
+          Thank you! We've received your application. We'll contact you shortly
+          to proceed with the next steps.
+        </p>
+      </Modal>
     </div>
   );
 }

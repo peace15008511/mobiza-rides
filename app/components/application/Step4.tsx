@@ -10,23 +10,35 @@ type Props = {
 };
 
 export default function Step4({ onNext, onBack, formData }: Props) {
-  const [files, setFiles] = useState<{ [key: string]: File | null }>({});
+  const [error, setError] = useState("");
 
   const isBusiness = formData.package === "business";
 
   const handleFileChange = (name: string, file: File | null) => {
-    setFiles((prev) => ({ ...prev, [name]: file }));
+    formData[name] = file;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validate all required fields before moving on
+    const requiredFields = isBusiness
+      ? ["businessReg", "companyAddress", "directorId", "driverLicense"]
+      : ["id", "license", "residence"];
+
+    const missing = requiredFields.find((key) => !formData[key]);
+
+    if (missing) {
+      setError("Please upload all required documents before proceeding.");
+      return;
+    }
+
+    setError("");
+    onNext();
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        // Optional: Save files to formData or upload separately
-        onNext();
-      }}
-      className="space-y-6"
-    >
+    <form onSubmit={handleSubmit} className="space-y-6">
       <h2 className="text-2xl font-bold text-[#C8102E]">
         Step 4: Upload Documents
       </h2>
@@ -82,6 +94,8 @@ export default function Step4({ onNext, onBack, formData }: Props) {
           </>
         )}
       </div>
+
+      {error && <p className="text-red-600 text-sm">{error}</p>}
 
       <div className="flex justify-between pt-4">
         <button

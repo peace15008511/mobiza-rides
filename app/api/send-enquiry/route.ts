@@ -8,15 +8,15 @@ export async function POST(req: Request) {
     port: 465,
     secure: true,
     auth: {
-      user: "info@mobizarides.com",
+      user: "peace.mulovhedzi@mobizarides.com",
       pass: process.env.ZOHO_APP_PASSWORD,
     },
   });
 
   const mailOptions = {
-    from: `"Mobiza Enquire now Form" <info@mobizarides.com>`,
+    from: `"MobiZA Rides Enquire Now Form" <peace.mulovhedzi@mobizarides.com>`,
     to: "enquiries@mobizarides.com",
-    subject: `New App Enquiry from ${name}`,
+    subject: `New Enquiry from ${name}`,
     html: `
   <div style="font-family: Arial, sans-serif; background-color: #FDFCFB; color: #000000; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
     <p style="font-size: 16px; margin-bottom: 20px;">Hello Team,</p>
