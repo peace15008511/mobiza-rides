@@ -11,15 +11,13 @@ export const config = {
   },
 };
 
-// Helper to convert Buffer to Readable Stream for formidable parsing
-function bufferToStream(buffer: Buffer) {
+function bufferToStream(buffer: Buffer): Readable {
   const stream = new Readable();
   stream.push(buffer);
   stream.push(null);
   return stream;
 }
 
-// Create a "req-like" object formidable can parse from Next.js Request + buffer
 function createReqLikeObject(req: Request, buffer: Buffer) {
   const stream = bufferToStream(buffer);
   const headers: Record<string, string> = {};
@@ -37,33 +35,27 @@ function createReqLikeObject(req: Request, buffer: Buffer) {
 }
 
 export async function POST(req: Request) {
-  // Read raw request body as buffer
   const buffer = Buffer.from(await req.arrayBuffer());
 
-  // Prepare upload directory inside OS temp folder
   const uploadDir = path.join(os.tmpdir(), "mobizarides-uploads");
   await fs.mkdir(uploadDir, { recursive: true });
 
-  // Setup formidable with uploadDir and other options
   const form = new IncomingForm({
     multiples: true,
     keepExtensions: true,
     uploadDir,
   });
 
-  const formData: any = {};
+  const formData: Record<string, any> = {};
   const files: any[] = [];
 
-  // Create req-like stream object for formidable to parse
   const reqLike = createReqLikeObject(req, buffer);
 
-  // Parse form data and files
   await new Promise<void>((resolve, reject) => {
     form.parse(reqLike as any, (err, fields, fileMap) => {
       if (err) return reject(err);
 
       Object.assign(formData, fields);
-
       for (const key in fileMap) {
         const val = fileMap[key];
         if (Array.isArray(val)) {
@@ -72,12 +64,10 @@ export async function POST(req: Request) {
           files.push(val);
         }
       }
-
       resolve();
     });
   });
 
-  // Extract and normalize fields (note: all fields come as strings)
   const {
     firstName,
     surname,
@@ -100,7 +90,6 @@ export async function POST(req: Request) {
   const maintenance = maintenancePlan === "true" ? addon : 0;
   const total = (base + service + maintenance) * quantity;
 
-  // Prepare email HTML body
   const html = `
     <div style="font-family: Arial, sans-serif; background-color: #FDFCFB; padding: 24px; border-radius: 8px;">
       <h2 style="color: #C8102E;">New Rental Application</h2>
@@ -124,7 +113,6 @@ export async function POST(req: Request) {
     </div>
   `;
 
-  // Read uploaded files content for attachments
   const attachments = await Promise.all(
     files.map(async (file) => {
       const content = await fs.readFile(file.filepath);
@@ -135,7 +123,6 @@ export async function POST(req: Request) {
     })
   );
 
-  // Nodemailer transporter config
   const transporter = nodemailer.createTransport({
     host: "smtp.zoho.com",
     port: 465,
@@ -146,7 +133,6 @@ export async function POST(req: Request) {
     },
   });
 
-  // Mail options including attachments
   const mailOptions = {
     from: `"MobiZA Rides Application" <peace.mulovhedzi@mobizarides.com>`,
     to: "applications@mobizarides.com",
