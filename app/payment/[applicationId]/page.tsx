@@ -51,61 +51,54 @@ export default function PaymentPage() {
   useEffect(() => {
     const pkg = bikePackages.find((p) => p.id === mockUser.package);
     setSelectedPackage(pkg);
+
+    // 👇 Load Paystack script
+    const script = document.createElement("script");
+    script.src = "https://js.paystack.co/v1/inline.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script); // clean up
+    };
   }, []);
 
   const total = selectedPackage ? selectedPackage.price + 2000 : 0;
 
-  const handleOnlinePayment = async () => {
+  const handleOnlinePayment = () => {
     if (!agreedToTnc) {
       alert("Please agree to the Terms and Conditions before proceeding.");
       return;
     }
 
-    try {
-      const res = await fetch("/api/payfast", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: total.toFixed(2),
-          name: `${mockUser.firstName} ${mockUser.surname}`,
-          email: "test@example.com",
-        }),
-      });
+    const paystack = (window as any).PaystackPop?.setup({
+      key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+      email: "peace15008511@gmail.com",
+      amount: total * 100, // Rands to cents
+      currency: "ZAR",
+      firstname: mockUser.firstName,
+      lastname: mockUser.surname,
+      reference: `MOBIZA_${Date.now()}`,
+      callback: function (response: any) {
+        alert("Payment complete! Reference: " + response.reference);
+        // Optionally: call backend to verify transaction here
+      },
+      onClose: function () {
+        alert("Payment window closed.");
+      },
+    });
 
-      const { form } = await res.json();
-
-      // Create and submit a form to redirect user to PayFast sandbox
-      const pfForm = document.createElement("form");
-      pfForm.action = "https://sandbox.payfast.co.za/eng/process";
-      pfForm.method = "POST";
-
-      form.split("&").forEach((pair: string) => {
-        const [key, value] = pair.split("=");
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = decodeURIComponent(key);
-        input.value = decodeURIComponent(value);
-        pfForm.appendChild(input);
-      });
-
-      document.body.appendChild(pfForm);
-      pfForm.submit();
-    } catch (err) {
-      console.error("PayFast redirect error:", err);
-      alert("There was an error initiating payment.");
-    }
+    paystack.openIframe();
   };
 
   if (!selectedPackage) return <div className="p-6">Loading...</div>;
 
   return (
     <div className="max-w-5xl mx-auto p-8 space-y-6 bg-white rounded-2xl shadow-lg mt-10">
+      {/* --- Heading Section --- */}
       <h2 className="text-3xl font-bold text-[#B08D57]">
         You're Almost There!
       </h2>
-
       <p className="text-gray-800 max-w-2xl">
         🎉 Congratulations{" "}
         <strong>
@@ -115,6 +108,7 @@ export default function PaymentPage() {
         ! You're just one payment away from riding your new delivery bike.
       </p>
 
+      {/* --- Package Card --- */}
       <div
         className={`${selectedPackage.color} rounded-xl p-4 shadow-md flex gap-4 max-w-md`}
       >
@@ -136,6 +130,7 @@ export default function PaymentPage() {
         </div>
       </div>
 
+      {/* --- Payment Summary --- */}
       <div className="border-t pt-4 space-y-2 max-w-md">
         <h4 className="text-lg font-semibold text-[#2C2F33]">
           Payment Summary
@@ -155,7 +150,7 @@ export default function PaymentPage() {
       </div>
 
       <div className="md:flex md:gap-8">
-        {/* Online Payment Section */}
+        {/* --- Online Payment Section --- */}
         <section className="flex-1 border rounded-xl p-6 shadow-sm">
           <h4 className="text-xl font-semibold text-[#2C2F33] mb-4">
             Pay Online (Recommended)
@@ -218,7 +213,7 @@ export default function PaymentPage() {
           </button>
         </section>
 
-        {/* Bank Transfer Section */}
+        {/* --- Bank Transfer Section --- */}
         <section className="flex-1 border rounded-xl p-6 shadow-sm mt-8 md:mt-0">
           <h4 className="text-xl font-semibold text-[#2C2F33] mb-4">
             Bank Transfer Details
@@ -275,7 +270,6 @@ export default function PaymentPage() {
                   return;
                 }
                 alert(`Proof of payment uploaded: ${proofFile.name}`);
-                // Here you can add actual upload logic to backend or storage
               }}
               className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded font-semibold w-full"
             >

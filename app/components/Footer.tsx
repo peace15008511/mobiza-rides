@@ -84,7 +84,7 @@ export default function Footer() {
               <Facebook className="w-5 h-5" />
             </a>
             <a
-              href="https://twitter.com/mobizarides"
+              href="https://x.com/mobizaride"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Twitter"

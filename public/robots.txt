@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://mobizarides.com
+
+# Sitemaps
+Sitemap: https://mobizarides.com/sitemap.xml

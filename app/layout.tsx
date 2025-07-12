@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 // Load fonts
@@ -22,7 +23,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-// Metadata
+// SEO Metadata
 export const metadata: Metadata = {
   title: "MobiZA Rides - Delivery Bike Rentals",
   description:
@@ -42,7 +43,18 @@ export const metadata: Metadata = {
     title: "MobiZA Rides",
     description:
       "Rent a delivery bike from R650/week. Easy online application for food delivery riders. Start earning with Mobiza today.",
-    creator: "@MobiZA_Rides", // Update if you have an actual Twitter handle
+    creator: "@Dev_Peace",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -56,6 +68,42 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable}`}
     >
+      <head>
+        {/* Global scripts */}
+        <Script
+          src="https://js.paystack.co/v1/inline.js"
+          strategy="beforeInteractive"
+        />
+
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" />
+
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://mobizarides.com" />
+
+        {/* Theme color */}
+        <meta name="theme-color" content="#C8102E" />
+
+        {/* Structured data for local business */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "MobiZA Rides",
+              url: "https://mobizarides.com",
+              logo: "https://mobizarides.com/images/mobizarideslogo.png",
+              description:
+                "Affordable, legal delivery bikes for MR D, Uber Eats, and Bolt Food riders.",
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "ZA",
+              },
+            }),
+          }}
+        />
+      </head>
       <body className="font-sans antialiased bg-white text-gray-800">
         {children}
       </body>
