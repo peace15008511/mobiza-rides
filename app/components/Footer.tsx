@@ -75,7 +75,7 @@ export default function Footer() {
           </p>
           <div className="flex space-x-4 mt-2 text-black">
             <a
-              href="https://facebook.com/mobizarides"
+              href="https://www.facebook.com/61577943509160"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
